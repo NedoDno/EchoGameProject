@@ -17,8 +17,8 @@ public class MouseLookX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    float horizontalRot = Input.GetAxis("Mouse X") * sensitivityHor;
-    transform.Rotate(0, horizontalRot, 0);
+        float horizontalRot = Input.GetAxis("Mouse X") * sensitivityHor;
+        transform.Rotate(0, horizontalRot, 0);
     }
 
 }
