@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PuzzleTrigger : MonoBehaviour
 {
     public float radius = 2f;
     public Transform playerCamera;
-    private SettingsPopup popup;
-    void Start()
-    {
-        popup.Close();
-    }
+    //[SerializeField] private SettingsPopup popup;
+    
 
     void Update()
     {
@@ -22,7 +20,7 @@ public class PuzzleTrigger : MonoBehaviour
                 Vector3 direction = hitCollider.transform.position - transform.position;
                 if (Vector3.Dot(transform.forward, direction) > .5f)
                 {
-                    popup.Open();
+                    SceneManager.LoadScene("test", LoadSceneMode.Additive);
                 }
             }
         }
