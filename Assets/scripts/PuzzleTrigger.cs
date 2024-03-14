@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class PuzzleTrigger : MonoBehaviour
 {
     public float radius = 2f;
-    public Transform playerCamera;
+    //public Transform playerCamera;
     //[SerializeField] private SettingsPopup popup;
+    public bool isActivated = false;
     
 
     void Update()
@@ -18,8 +19,9 @@ public class PuzzleTrigger : MonoBehaviour
             foreach (Collider hitCollider in hitColliders)
             {
                 Vector3 direction = hitCollider.transform.position - transform.position;
-                if (Vector3.Dot(transform.forward, direction) > .5f)
+                if (Vector3.Dot(transform.forward, direction) > .5f & !isActivated)
                 {
+                    isActivated = true;
                     SceneManager.LoadScene("test", LoadSceneMode.Additive);
                 }
             }

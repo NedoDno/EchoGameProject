@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform gameTransform;
     [SerializeField] private Transform piecePrefab;
+    //public GameObject puzzle;
     //[SerializeField] private SettingsPopup popup;
 
     private List<Transform> pieces;
@@ -58,9 +59,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //StartPuzzle();
         pieces = new List<Transform>();
         size = 4;
         CreateGamePieces(0.01f);
+
     }
 
     // Update is called once per frame
@@ -168,13 +171,21 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void StartPuzzle()
+    public void ExitPuzzle()
     {
-       // popup.Open();
+        SceneManager.UnloadSceneAsync("test");
+    }
+}
+    /*public void StartPuzzle()
+    {
+        SceneManager.LoadScene("test", LoadSceneMode.Additive);
+        pieces = new List<Transform>();
+        size = 4;
+        CreateGamePieces(0.01f);
     }
 
     public void ExitPuzzle()
     {
-       // popup.Close();
+        puzzle.SetActive(false);
     }
-}
+}*/
