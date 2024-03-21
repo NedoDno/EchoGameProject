@@ -22,7 +22,7 @@ public class PuzzleTrigger : MonoBehaviour
                 if (Vector3.Dot(transform.forward, direction) > .5f & !isActivated)
                 {
                     isActivated = true;
-                    SceneManager.LoadScene("test", LoadSceneMode.Additive);
+                    //SceneManager.LoadScene("test", LoadSceneMode.Additive);
                 }
             }
         }

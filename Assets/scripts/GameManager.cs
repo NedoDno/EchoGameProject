@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform piecePrefab;
     //public GameObject puzzle;
     //[SerializeField] private SettingsPopup popup;
+    private bool isActive = false;
 
     private List<Transform> pieces;
     private int emptyLocation;
@@ -63,21 +64,29 @@ public class GameManager : MonoBehaviour
         pieces = new List<Transform>();
         size = 4;
         CreateGamePieces(0.01f);
+        isActive = true;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isActive && Input.GetKeyDown(KeyCode.F))
+        {
+            pieces = new List<Transform>();
+            size = 4;
+            CreateGamePieces(0.01f);
+            isActive = true;
+        }
         // Check for completion.
-        if (!shuffling && CheckCompletion())
+        if (isActive && !shuffling && CheckCompletion())
         {
             shuffling = true;
             StartCoroutine(WaitShuffle(0.5f));
         }
 
         // On click send out ray to see if we click a piece.
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isActive)
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -143,6 +152,7 @@ public class GameManager : MonoBehaviour
     // Brute force shuffling.
     public void Shuffle()
     {
+        if (!isActive) return;
         int count = 0;
         int last = 0;
         while (count < (size * size * size))
@@ -171,21 +181,22 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void ExitPuzzle()
-    {
-        SceneManager.UnloadSceneAsync("test");
-    }
 }
-    /*public void StartPuzzle()
-    {
-        SceneManager.LoadScene("test", LoadSceneMode.Additive);
-        pieces = new List<Transform>();
-        size = 4;
-        CreateGamePieces(0.01f);
-    }
+/*public void StartPuzzle()
+{
+    SceneManager.LoadScene("test", LoadSceneMode.Additive);
+    pieces = new List<Transform>();
+    size = 4;
+    CreateGamePieces(0.01f);
+}
+public void ExitPuzzle()
+{
+    isActive = false;
+    SceneManager.UnloadScene("test");
+}
 
-    public void ExitPuzzle()
-    {
-        puzzle.SetActive(false);
-    }
+public void ExitPuzzle()
+{
+    puzzle.SetActive(false);
+}
 }*/
