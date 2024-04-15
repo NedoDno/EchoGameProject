@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
 
-    [SerializeField] private Text shard_num;
-    [SerializeField] private Text shad_num;
     [SerializeField] private SettingsPopup settingsPopup;
     public bool isPaused = false;
     void Start()
@@ -17,8 +15,6 @@ public class UIController : MonoBehaviour
     }
     void Update()
     {
-        shard_num.text = Time.realtimeSinceStartup.ToString();
-        shad_num.text = (Time.realtimeSinceStartup/10).ToString();
         if (Input.GetKey("escape"))
         {
             OnOpenSettings();
