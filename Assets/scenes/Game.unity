@@ -1739,7 +1739,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.9383056, b: 0.28490567, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 15
   m_SpotAngle: 134
   m_InnerSpotAngle: 9
@@ -9657,7 +9657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2460156708185005957, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.84
+      value: 36.85
       objectReference: {fileID: 0}
     - target: {fileID: 2460156708185005957, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9690,6 +9690,18 @@ PrefabInstance:
     - target: {fileID: 2460156708185359517, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
       propertyPath: m_Name
       value: SpawnMirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460156708190771821, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
+      propertyPath: MirrorRecursion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460156708190771821, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
+      propertyPath: NormalIsForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460156708190771821, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
+      propertyPath: ReflectLayers.m_Bits
+      value: 23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
