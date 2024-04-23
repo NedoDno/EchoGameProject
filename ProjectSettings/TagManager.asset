@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Piece
   - HandPosition
+  - LightSource
+  - SpawnPoint
+  - Enemy
+  - PickUpItem
   layers:
   - Default
   - TransparentFX
@@ -14,11 +18,11 @@ TagManager:
   - Water
   - UI
   - minigame
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Lamp
+  - SpawnPoint
+  - Post Process
   - 
   - 
   - 
