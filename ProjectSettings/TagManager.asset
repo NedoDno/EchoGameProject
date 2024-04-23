@@ -9,6 +9,7 @@ TagManager:
   - LightSource
   - SpawnPoint
   - Enemy
+  - PickUpItem
   layers:
   - Default
   - TransparentFX

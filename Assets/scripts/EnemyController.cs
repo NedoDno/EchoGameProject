@@ -24,7 +24,8 @@ public class EnemyController : MonoBehaviour
             timer = 0f;
         }
 
-        timer += Time.deltaTime; 
+        timer += Time.deltaTime;
+        InitializeSpawnPoints();
     }
     void InitializeSpawnPoints()
     {

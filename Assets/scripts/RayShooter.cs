@@ -5,26 +5,25 @@ using UnityEngine.UI;
 
 public class RayShooter : MonoBehaviour
 {
-    public GameObject lightBulletPrefab; // Prefab of the light particle
-    public Transform shootingPoint; // Point from which bullets are shot, typically the camera center
+    public GameObject lightBulletPrefab; 
+    public Transform shootingPoint; 
     public Camera playerCamera;
-    public GameObject aimScope; // UI Aim/Scope to enable when the weapon is held
-    public GameObject lamp; // Reference to the lamp GameObject
+    public GameObject aimScope; 
+    public GameObject lamp; 
     public bool hasWeapon = true;
     public float shootingDelay = 0.5f;
     private float lastShootTime;
 
     void Start()
     {
-        aimScope.SetActive(true); // Ensure the aim is not visible until the weapon is picked up
+        aimScope.SetActive(true); 
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // Attempt to toggle weapon use
-            if (!IsLampCarried()) // Check if the lamp is not being carried
+            if (!IsLampCarried()) 
             {
                 hasWeapon = !hasWeapon;
                 aimScope.SetActive(hasWeapon);
@@ -56,20 +55,15 @@ public class RayShooter : MonoBehaviour
             lightBullet.transform.position = hit.point;
             Destroy(lightBullet, 1.0f);
 
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("SpawnPoint"))
             {
-                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
-                {
-                    enemyHealth.TakeDamage(10);
-                }
+                hit.collider.GetComponent<Damageable>().TakeDamage(10);
             }
         }
     }
 
     bool IsLampCarried()
     {
-        // Check if the lamp is a child of the player
         return lamp.transform.parent == transform;
     }
 }
