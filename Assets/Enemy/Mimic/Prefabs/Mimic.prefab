@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -802351177197455025}
   - component: {fileID: 6252453757239369072}
   - component: {fileID: -6165821177439029325}
+  - component: {fileID: 613850222844825863}
   m_Layer: 8
   m_Name: Mimic
   m_TagString: Untagged
@@ -65,7 +66,7 @@ MonoBehaviour:
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: -0.863778, y: 0, z: -0.22199097}
+  velocity: {x: 0.21374416, y: 0, z: 0.6855233}
 --- !u!195 &-802351177197455025
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e95ed1206cdda49aed898b4b270291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: -802351177197455025}
   wanderRadius: 10
   wanderTimer: 5
   height: 0.8
@@ -132,6 +133,25 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &613850222844825863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675915457954794080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ec5ca1543fda46b4441b2cf2abdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 40
+  collectiblePrefab: {fileID: 8675915458194695971}
+  dropChance: 0.25
+  player: {fileID: 0}
+  attackDistance: 5
+  attackDamage: 10
+  attackCooldown: 3
 --- !u!1 &8675915458194695971
 GameObject:
   m_ObjectHideFlags: 0

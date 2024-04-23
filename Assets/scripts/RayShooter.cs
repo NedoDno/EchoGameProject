@@ -5,43 +5,71 @@ using UnityEngine.UI;
 
 public class RayShooter : MonoBehaviour
 {
-    public Text killCountText;
-    public GameObject collectiblePrefab;
-    public GameObject impactPrefab;  // Prefab for the sphere that appears when ray hits a non-enemy object
-    public float dropChance = 0.25f;
-    private int killCount = 0;
+    public GameObject lightBulletPrefab; // Prefab of the light particle
+    public Transform shootingPoint; // Point from which bullets are shot, typically the camera center
+    public Camera playerCamera;
+    public GameObject aimScope; // UI Aim/Scope to enable when the weapon is held
+    public GameObject lamp; // Reference to the lamp GameObject
+    public bool hasWeapon = true;
+    public float shootingDelay = 0.5f;
+    private float lastShootTime;
+
+    void Start()
+    {
+        aimScope.SetActive(true); // Ensure the aim is not visible until the weapon is picked up
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))  // Shooting is triggered by the left mouse button
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 100f))  // You might want to limit the ray range
+            // Attempt to toggle weapon use
+            if (!IsLampCarried()) // Check if the lamp is not being carried
             {
-                if (hit.collider.gameObject.CompareTag("Enemy"))
+                hasWeapon = !hasWeapon;
+                aimScope.SetActive(hasWeapon);
+                if (hasWeapon)
                 {
-                    Destroy(hit.collider.gameObject);
-                    killCount++;
-                    UpdateKillCountText();
-
-                    // Chance to drop a collectible
-                    if (Random.value < dropChance)
-                    {
-                        Instantiate(collectiblePrefab, hit.collider.transform.position, Quaternion.identity);
-                    }
+                    // Optional: Add sound of picking up a weapon
                 }
                 else
                 {
-                    // Instantiate the impact prefab at the hit location and destroy it after 1 second
-                    GameObject tempImpact = Instantiate(impactPrefab, hit.point, Quaternion.identity);
-                    Destroy(tempImpact, 1.0f);
+                    // Optional: Add sound of putting away a weapon
+                }
+            }
+        }
+
+        if (hasWeapon && Input.GetMouseButtonDown(0) && Time.time > lastShootTime + shootingDelay)
+        {
+            Shoot();
+            lastShootTime = Time.time;
+        }
+    }
+
+    void Shoot()
+    {
+        RaycastHit hit;
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject lightBullet = Instantiate(lightBulletPrefab, shootingPoint.position, Quaternion.identity);
+            lightBullet.transform.position = hit.point;
+            Destroy(lightBullet, 1.0f);
+
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(10);
                 }
             }
         }
     }
 
-    void UpdateKillCountText()
+    bool IsLampCarried()
     {
-        killCountText.text = "Kills: " + killCount;
+        // Check if the lamp is a child of the player
+        return lamp.transform.parent == transform;
     }
 }
