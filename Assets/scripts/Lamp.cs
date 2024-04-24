@@ -8,12 +8,15 @@ public class Lamp : MonoBehaviour
     private bool isCarried = false;
     private Transform playerTransform;
     private float ogheight;
+    private AudioSource audioSource; 
 
     //[SerializeField] private GameObject lamp;
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         ogheight = transform.position.y;
+
+        audioSource = GetComponent<AudioSource>(); 
     }
 
     void Update()
@@ -23,10 +26,12 @@ public class Lamp : MonoBehaviour
             if (!isCarried)
             {
                 PickUp();
+                audioSource.Play();
             }
             else
             {
                 PutDown();
+                audioSource.Play();
             }
         }
     }
