@@ -1,29 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PuzzleTrigger : MonoBehaviour
 {
-    public float radius = 2f;
-    //public Transform playerCamera;
-    //[SerializeField] private SettingsPopup popup;
-    public bool isActivated = false;
-    
+    public GameObject player;
+    public GameObject puzzleUI;
+    public float activationDistance = 2.0f;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Vector3.Distance(transform.position, player.transform.position) <= activationDistance)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
-            foreach (Collider hitCollider in hitColliders)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                Vector3 direction = hitCollider.transform.position - transform.position;
-                if (Vector3.Dot(transform.forward, direction) > .5f & !isActivated)
-                {
-                    isActivated = true;
-                    //SceneManager.LoadScene("test", LoadSceneMode.Additive);
-                }
+                puzzleUI.SetActive(true);
             }
         }
     }

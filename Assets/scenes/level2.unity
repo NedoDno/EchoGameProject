@@ -1190,7 +1190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c84d09c3a5f4e664b920a3600b2e42ef, type: 2}
+  - {fileID: 2100000, guid: 10f41c01e21319844b0efb702a56313d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2745,7 +2745,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c84d09c3a5f4e664b920a3600b2e42ef, type: 2}
+  - {fileID: 2100000, guid: 10f41c01e21319844b0efb702a56313d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6135,7 +6135,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c84d09c3a5f4e664b920a3600b2e42ef, type: 2}
+  - {fileID: 2100000, guid: 10f41c01e21319844b0efb702a56313d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6950,6 +6950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameTransform: {fileID: 0}
   piecePrefab: {fileID: 8509066690626029402, guid: c7560ebfbb7b2bb4caecd3766f0d61b1, type: 3}
+  puzzleUI: {fileID: 0}
 --- !u!4 &1698194846
 Transform:
   m_ObjectHideFlags: 0
@@ -7474,7 +7475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c84d09c3a5f4e664b920a3600b2e42ef, type: 2}
+  - {fileID: 2100000, guid: 10f41c01e21319844b0efb702a56313d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7785,7 +7786,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c84d09c3a5f4e664b920a3600b2e42ef, type: 2}
+  - {fileID: 2100000, guid: 10f41c01e21319844b0efb702a56313d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

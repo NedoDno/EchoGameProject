@@ -7,134 +7,95 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform gameTransform;
     [SerializeField] private Transform piecePrefab;
-    //public GameObject puzzle;
-    //[SerializeField] private SettingsPopup popup;
-    private bool isActive = false;
+    public GameObject puzzleUI;
 
     private List<Transform> pieces;
     private int emptyLocation;
-    private int size;
+    private int size = 4; // Setting the size of the puzzle grid
     private bool shuffling = false;
+    private float gapThickness = 1f; // Adjusted gap thickness initialization
 
-    // Create the game setup with size x size pieces.
-    private void CreateGamePieces(float gapThickness)
+    private void Start()
     {
-        // This is the width of each tile.
-        float width = 1f / size;
+        puzzleUI.SetActive(false);
+        pieces = new List<Transform>(); // Ensure the list is initialized before use
+        CreateGamePieces(); 
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && puzzleUI.activeSelf)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Transform hitTransform = hit.transform;
+                int index = pieces.IndexOf(hitTransform);
+                if (index != -1)
+                {
+                    if (SwapIfValid(index, -size, size)) { return; }
+                    if (SwapIfValid(index, +size, size)) { return; }
+                    if (SwapIfValid(index, -1, 0)) { return; }
+                    if (SwapIfValid(index, +1, size - 1)) { return; }
+                }
+            }
+        }
+
+        if (puzzleUI.activeSelf && !shuffling && CheckCompletion())
+        {
+            Debug.Log("Puzzle Solved!");
+            ClosePuzzle();
+        }
+    }
+
+    private void CreateGamePieces()
+    {
+        float width = 180f / size; // Updated to use the size for dynamic sizing
         for (int row = 0; row < size; row++)
         {
             for (int col = 0; col < size; col++)
             {
                 Transform piece = Instantiate(piecePrefab, gameTransform);
                 pieces.Add(piece);
-                // Pieces will be positioned in a cube from (-1, -1, -1) to (1, 1, 1).
                 piece.localPosition = new Vector3(-1 + (2 * width * col) + width,
                                                   1 - (2 * width * row) - width,
-                                                  0); // Adjust Z position as needed.
-                piece.localScale = ((2 * width) - gapThickness) * Vector3.one;
-                piece.name = $"{(row * size) + col}";
-                // We want an empty space in the bottom right.
-                if ((row == size - 1) && (col == size - 1))
+                                                  0);
+                piece.localScale = new Vector3((2 * width) - gapThickness, (2 * width) - gapThickness, 1); // Adjust scale uniformly
+                piece.name = $"Piece {(row * size) + col}";
+
+                if (row == size - 1 && col == size - 1)
                 {
                     emptyLocation = (size * size) - 1;
-                    piece.gameObject.SetActive(false);
-                }
-                else
-                {
-                    float uvSize = 1f / size;
-                    Vector2[] uvs = new Vector2[4]; // Assuming a quad mesh for simplicity.
-
-                    uvs[0] = new Vector2(col * uvSize, 1 - (row + 1) * uvSize); // Bottom left
-                    uvs[1] = new Vector2((col + 1) * uvSize, 1 - (row + 1) * uvSize); // Bottom right
-                    uvs[2] = new Vector2(col * uvSize, 1 - row * uvSize); // Top left
-                    uvs[3] = new Vector2((col + 1) * uvSize, 1 - row * uvSize); // Top right
-
-                    Mesh mesh = piece.GetComponent<MeshFilter>().mesh;
-                    mesh.uv = uvs;
-
+                    piece.gameObject.SetActive(false); // Last piece is the empty space
                 }
             }
         }
+        Shuffle();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //StartPuzzle();
-        pieces = new List<Transform>();
-        size = 4;
-        CreateGamePieces(0.01f);
-        isActive = true;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!isActive && Input.GetKeyDown(KeyCode.F))
-        {
-            pieces = new List<Transform>();
-            size = 4;
-            CreateGamePieces(0.01f);
-            isActive = true;
-        }
-        // Check for completion.
-        if (isActive && !shuffling && CheckCompletion())
-        {
-            shuffling = true;
-            StartCoroutine(WaitShuffle(0.5f));
-        }
-
-        // On click send out ray to see if we click a piece.
-        if (Input.GetMouseButtonDown(0) && isActive)
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Check if the hit object is a game piece.
-                if (hit.transform.CompareTag("Piece"))
-                {
-                    for (int i = 0; i < pieces.Count; i++)
-                    {
-                        if (pieces[i] == hit.transform)
-                        {
-                            // Check each direction to see if valid move.
-                            // We break out on success so we don't carry on and swap back again.
-                            if (SwapIfValid(i, -size, size)) { break; }
-                            if (SwapIfValid(i, +size, size)) { break; }
-                            if (SwapIfValid(i, -1, 0)) { break; }
-                            if (SwapIfValid(i, +1, size - 1)) { break; }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    // colCheck is used to stop horizontal moves wrapping.
     private bool SwapIfValid(int i, int offset, int colCheck)
     {
-        if (((i % size) != colCheck) && ((i + offset) == emptyLocation))
+        int newI = i + offset;
+        if ((i % size) != colCheck && newI >= 0 && newI < pieces.Count && newI == emptyLocation)
         {
-            // Swap them in game state.
-            (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
-            // Swap their transforms.
-            (pieces[i].localPosition, pieces[i + offset].localPosition) = ((pieces[i + offset].localPosition, pieces[i].localPosition));
-            // Update empty location.
-            emptyLocation = i;
+            SwapPieces(i, newI);
             return true;
         }
         return false;
     }
 
-    // We name the pieces in order so we can use this to check completion.
+    private void SwapPieces(int i, int j)
+    {
+        (pieces[i].localPosition, pieces[j].localPosition) = (pieces[j].localPosition, pieces[i].localPosition);
+        emptyLocation = i; // Update empty location
+    }
+
     private bool CheckCompletion()
     {
         for (int i = 0; i < pieces.Count; i++)
         {
-            if (pieces[i].name != $"{i}")
+            if (pieces[i].name != $"Piece {i}")
             {
                 return false;
             }
@@ -142,17 +103,15 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    private IEnumerator WaitShuffle(float duration)
+    public void ClosePuzzle()
     {
-        yield return new WaitForSeconds(duration);
-        Shuffle();
-        shuffling = false;
+        puzzleUI.SetActive(false);
     }
 
     // Brute force shuffling.
     public void Shuffle()
     {
-        if (!isActive) return;
+        if (!puzzleUI.activeSelf) return;
         int count = 0;
         int last = 0;
         while (count < (size * size * size))
@@ -182,7 +141,21 @@ public class GameManager : MonoBehaviour
         }
     }
 }
-/*public void StartPuzzle()
+/*private void HandlePuzzleInteraction()
+    {
+        if (puzzleUI.activeSelf && Input.GetKeyDown(KeyCode.R) && refreshItemCount > 0)
+        {
+            refreshItemCount--;
+            Shuffle();
+        }
+        if (puzzleUI.activeSelf && Input.GetKeyDown(KeyCode.S) && skipItemCount > 0)
+        {
+            skipItemCount--;
+            CompletePuzzle();
+        }
+    }
+
+public void StartPuzzle()
 {
     SceneManager.LoadScene("test", LoadSceneMode.Additive);
     pieces = new List<Transform>();

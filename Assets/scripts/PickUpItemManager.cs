@@ -34,15 +34,15 @@ public class PickUpItemManager : MonoBehaviour
         {
             case PickupItem.ItemType.Type1:
                 type1Count++;
-                type1Text.text = "Type 1: " + type1Count;
+                type1Text.text = "x " + type1Count;
                 break;
             case PickupItem.ItemType.Type2:
                 type2Count++;
-                type2Text.text = "Type 2: " + type2Count;
+                type2Text.text = "x " + type2Count;
                 break;
             case PickupItem.ItemType.Type3:
                 type3Count++;
-                type3Text.text = "Type 3: " + type3Count;
+                type3Text.text = "x " + type3Count;
                 break;
         }
     }
