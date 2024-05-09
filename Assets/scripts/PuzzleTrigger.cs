@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PuzzleTrigger : MonoBehaviour
 {
     public GameObject player;
-    public GameObject puzzleUI;
+    public GameObject puzzle;
     public float activationDistance = 2.0f;
 
     void Update()
@@ -14,7 +15,9 @@ public class PuzzleTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                puzzleUI.SetActive(true);
+                Time.timeScale = 0;
+                puzzle.SetActive(true);
+
             }
         }
     }
