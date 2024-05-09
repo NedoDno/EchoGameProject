@@ -985,7 +985,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzleImage: {fileID: 2800000, guid: ce725eef9d1409d4a838911ba37892a7, type: 3}
   gridSize: 4
-  puzzle: {fileID: 0}
   tileSize: 100
   completionText: {fileID: 2730530368566255218}
 --- !u!1 &9061985039103085798
@@ -1013,7 +1012,7 @@ RectTransform:
   m_GameObject: {fileID: 9061985039103085798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 972155747366692460}

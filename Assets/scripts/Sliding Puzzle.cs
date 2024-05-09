@@ -9,14 +9,13 @@ public class SlidingPuzzle : MonoBehaviour
 {
     public Texture2D puzzleImage;
     public int gridSize = 4;
-    public GameObject puzzle;
     private GameObject[,] tiles;
     private int[,] tilePositions; // Array to hold the correct positions for comparison
     private int emptyTileX;
     private int emptyTileY;
     public float tileSize = 100;
     private RectTransform panel;
-    bool PuzzleCompleted = false;
+    public bool PuzzleCompleted = false;
     public TextMeshProUGUI completionText;
 
     void Start()
@@ -25,7 +24,6 @@ public class SlidingPuzzle : MonoBehaviour
         ShuffleTiles();
         PositionPanel();
         completionText.enabled = false;
-        puzzle.SetActive(false);
     }
 
     void Update()
@@ -62,6 +60,14 @@ public class SlidingPuzzle : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetPuzzleImage(Texture2D image)
+    {
+        puzzleImage = image;
+        CreatePuzzleGrid();
+        ShuffleTiles();
+        PositionPanel();
     }
 
     bool CheckCompletion()
@@ -179,7 +185,7 @@ public class SlidingPuzzle : MonoBehaviour
     public void LeavePuzzle()
     {
         Time.timeScale = 1;
-        puzzle.SetActive(false);
+        this.transform.parent.gameObject.SetActive(false);
 
     }
 
