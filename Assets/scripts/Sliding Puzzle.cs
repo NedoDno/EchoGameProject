@@ -20,9 +20,9 @@ public class SlidingPuzzle : MonoBehaviour
 
     void Start()
     {
-        CreatePuzzleGrid();
-        ShuffleTiles();
-        PositionPanel();
+        //CreatePuzzleGrid();
+        //ShuffleTiles();
+        //PositionPanel();
         completionText.enabled = false;
     }
 
@@ -54,6 +54,7 @@ public class SlidingPuzzle : MonoBehaviour
                         {
                             PuzzleCompleted = true;
                             completionText.enabled = true;
+                            panel.gameObject.SetActive(false);
                         }
                     }
                     break;
@@ -180,12 +181,13 @@ public class SlidingPuzzle : MonoBehaviour
     {
         PuzzleCompleted = true;
         completionText.enabled = true;
+        panel.gameObject.SetActive(false);
     }
 
     public void LeavePuzzle()
     {
         Time.timeScale = 1;
-        this.transform.parent.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
 
     }
 

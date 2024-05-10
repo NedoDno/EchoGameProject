@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durability: 40
-  dropPrefab: {fileID: 6065656756583873053, guid: 9bee9c72e06b0754fbba8b97868c2946, type: 3}
+  dropPrefab: {fileID: 1000010728489230, guid: 8b40cffea67202d4bbf662b25de4c94a, type: 3}
   dropChance: 1
 --- !u!65 &3727412419739826937
 BoxCollider:

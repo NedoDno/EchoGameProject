@@ -14,6 +14,7 @@ public class SanityManager : MonoBehaviour
     public float enemyDetectionRadius = 10f;
     public PostProcessProfile postProcessProfile;
     public GameObject player;
+    private int lightSourceCount = 0;
 
     private Vignette vignette;
     private bool isPlayerInLight = false;
@@ -74,7 +75,8 @@ public class SanityManager : MonoBehaviour
     {
         if (other.CompareTag("LightSource"))
         {
-            isPlayerInLight = true;
+            lightSourceCount++;
+            UpdateLightState();
         }
     }
 
@@ -82,9 +84,16 @@ public class SanityManager : MonoBehaviour
     {
         if (other.CompareTag("LightSource"))
         {
-            isPlayerInLight = false;
+            lightSourceCount--;
+            UpdateLightState();
         }
     }
+
+    void UpdateLightState()
+    {
+        isPlayerInLight = lightSourceCount > 0;
+    }
+
 
     public void ToggleGamePause(bool paused)
     {

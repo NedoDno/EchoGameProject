@@ -67,7 +67,7 @@ MonoBehaviour:
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: 0.24651775, y: 0, z: 0.5298472}
+  velocity: {x: 0.0328327, y: 0, z: -0.27316603}
 --- !u!195 &-802351177197455025
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durability: 10
-  dropPrefab: {fileID: 6065656756583873053, guid: 9bee9c72e06b0754fbba8b97868c2946, type: 3}
+  dropPrefab: {fileID: 1000013931470818, guid: 5c02591794acece409986647ed6329a7, type: 3}
   dropChance: 0.25
 --- !u!1 &8675915458194695971
 GameObject:

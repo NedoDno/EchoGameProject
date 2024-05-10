@@ -11,7 +11,7 @@ public class PuzzleTrigger : MonoBehaviour
     public Texture2D[] puzzleImages;
     public GameObject canvas;
     private GameObject minigameInstance;
-    private bool isPuzzleActive = false;
+    public GameObject door;
 
     void Update()
     {
@@ -40,9 +40,17 @@ public class PuzzleTrigger : MonoBehaviour
         if (minigameInstance != null)
         {
             SlidingPuzzle slidingPuzzle = minigameInstance.GetComponent<SlidingPuzzle>();
+            if (slidingPuzzle == null)
+            {
+                Debug.LogError("SlidingPuzzle component is missing on the minigame instance!");
+            }
             if (slidingPuzzle != null && slidingPuzzle.PuzzleCompleted)
             {
-                Debug.Log("Puzzle Completed!");
+                Door doorScript = door.GetComponent<Door>();
+                if (doorScript != null)
+                {
+                    doorScript.OpenDoor();  
+                }
             }
         }
     }

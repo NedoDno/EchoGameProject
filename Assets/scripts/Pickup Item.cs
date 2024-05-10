@@ -6,7 +6,7 @@ using TMPro;
 
 public class PickupItem : MonoBehaviour
 {
-    public enum ItemType { Type1, Type2, Type3 }
+    public enum ItemType { Shard, Shadow, Essence }
     public ItemType itemType;
 
     void Update()

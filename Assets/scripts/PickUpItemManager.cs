@@ -7,13 +7,13 @@ public class PickUpItemManager : MonoBehaviour
 {
     public static PickUpItemManager Instance { get; private set; }
 
-    public int type1Count = 0;
-    public int type2Count = 0;
-    public int type3Count = 0;
+    public int shardsCount = 0;
+    public int shadowsCount = 0;
+    public int essenceCount = 0;
 
-    public TextMeshProUGUI type1Text;
-    public TextMeshProUGUI type2Text;
-    public TextMeshProUGUI type3Text;
+    public TextMeshProUGUI shards;
+    public TextMeshProUGUI shadows;
+    public TextMeshProUGUI essence;
 
     void Awake()
     {
@@ -32,17 +32,17 @@ public class PickUpItemManager : MonoBehaviour
     {
         switch (itemType)
         {
-            case PickupItem.ItemType.Type1:
-                type1Count++;
-                type1Text.text = "x " + type1Count;
+            case PickupItem.ItemType.Shard:
+                shardsCount++;
+                shards.text = "x " + shardsCount;
                 break;
-            case PickupItem.ItemType.Type2:
-                type2Count++;
-                type2Text.text = "x " + type2Count;
+            case PickupItem.ItemType.Shadow:
+                shadowsCount++;
+                shadows.text = "x " + shadowsCount;
                 break;
-            case PickupItem.ItemType.Type3:
-                type3Count++;
-                type3Text.text = "x " + type3Count;
+            case PickupItem.ItemType.Essence:
+                essenceCount++;
+                essence.text = "x " + essenceCount;
                 break;
         }
     }
