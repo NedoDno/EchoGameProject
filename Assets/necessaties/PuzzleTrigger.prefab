@@ -123,5 +123,10 @@ MonoBehaviour:
   puzzle: {fileID: 9061985039103085798, guid: 0eef9c4ceb4f7b847aa2b9c6f885fb7c, type: 3}
   puzzleImages:
   - {fileID: 2800000, guid: ce725eef9d1409d4a838911ba37892a7, type: 3}
+  - {fileID: 2800000, guid: 1ebc47625a3df384bbf323e9332216fb, type: 3}
+  - {fileID: 2800000, guid: 6798ffbbfee80684da95e0eb194e5128, type: 3}
+  - {fileID: 2800000, guid: f948cd336b21dbf43b5ae3c849d6ff57, type: 3}
+  - {fileID: 2800000, guid: 74206e9e3ae309f4e85477fb51460ee9, type: 3}
+  - {fileID: 2800000, guid: 457b43688f8656046876974b1bdf1356, type: 3}
   canvas: {fileID: 0}
   door: {fileID: 0}

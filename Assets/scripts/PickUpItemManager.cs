@@ -46,4 +46,25 @@ public class PickUpItemManager : MonoBehaviour
                 break;
         }
     }
+    public bool ConsumeShadow()
+    {
+        if (shadowsCount > 0)
+        {
+            shadowsCount--;
+            shadows.text = "x " + shadowsCount;
+            return true;
+        }
+        return false;
+    }
+
+    public bool ConsumeEssence()
+    {
+        if (essenceCount > 0)
+        {
+            essenceCount--;
+            essence.text = "x " + essenceCount;
+            return true;
+        }
+        return false;
+    }
 }

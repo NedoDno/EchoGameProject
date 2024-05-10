@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6860931955547507228}
         m_TargetAssemblyTypeName: SlidingPuzzle, Assembly-CSharp
-        m_MethodName: ShuffleTiles
+        m_MethodName: UseShadow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -256,7 +256,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6860931955547507228}
         m_TargetAssemblyTypeName: SlidingPuzzle, Assembly-CSharp
-        m_MethodName: SkipPuzzle
+        m_MethodName: UseEssence
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

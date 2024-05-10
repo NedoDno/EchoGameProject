@@ -10,13 +10,15 @@ public class SlidingPuzzle : MonoBehaviour
     public Texture2D puzzleImage;
     public int gridSize = 4;
     private GameObject[,] tiles;
-    private int[,] tilePositions; // Array to hold the correct positions for comparison
+    private int[,] tilePositions; 
     private int emptyTileX;
     private int emptyTileY;
     public float tileSize = 100;
     private RectTransform panel;
     public bool PuzzleCompleted = false;
     public TextMeshProUGUI completionText;
+    private PickUpItemManager itemManager;
+
 
     void Start()
     {
@@ -24,6 +26,7 @@ public class SlidingPuzzle : MonoBehaviour
         //ShuffleTiles();
         //PositionPanel();
         completionText.enabled = false;
+        itemManager = GameObject.Find("GameController").GetComponent<PickUpItemManager>();
     }
 
     void Update()
@@ -148,7 +151,7 @@ public class SlidingPuzzle : MonoBehaviour
         emptyTileY = y;
     }
 
-    public void ShuffleTiles()
+    void ShuffleTiles()
     {   
         if (!PuzzleCompleted)
         {
@@ -177,7 +180,7 @@ public class SlidingPuzzle : MonoBehaviour
         panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(0.5f, 0.5f);
     }
 
-    public void SkipPuzzle()
+    void SkipPuzzle()
     {
         PuzzleCompleted = true;
         completionText.enabled = true;
@@ -190,5 +193,31 @@ public class SlidingPuzzle : MonoBehaviour
         this.gameObject.SetActive(false);
 
     }
+    public void UseShadow()
+    {
+        if (itemManager.ConsumeShadow())
+        {
+            Debug.Log("Refreshed puzzle using 1 Shadow item.");
+            ShuffleTiles();
+        }
+        else
+        {
+            Debug.Log("Not enough Shadow items to refresh the puzzle.");
+        }
+    }
+
+    public void UseEssence()
+    {
+        if (itemManager.ConsumeEssence())
+        {
+            Debug.Log("Skipped puzzle using 1 Essence item.");
+            SkipPuzzle();
+        }
+        else
+        {
+            Debug.Log("Not enough Essence items to skip the puzzle.");
+        }
+    }
+
 
 }
