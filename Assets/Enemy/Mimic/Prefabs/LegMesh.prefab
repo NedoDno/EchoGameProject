@@ -52,7 +52,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682633662898237459}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -231,7 +231,7 @@ MonoBehaviour:
   footPosition: {x: 0, y: 0, z: 0}
   maxLegDistance: 0
   legResolution: 0
-  legLine: {fileID: 0}
+  legLine: {fileID: 6164918350687002688}
   handlesCount: 8
   legMinHeight: 0.6
   legMaxHeight: 1.2

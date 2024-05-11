@@ -1734,7 +1734,6 @@ Transform:
   - {fileID: 1459687601}
   - {fileID: 654493531}
   - {fileID: 956602805}
-  - {fileID: 634603959}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &435268946
@@ -2073,11 +2072,11 @@ Transform:
   m_GameObject: {fileID: 634603958}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.4564443, y: -1.2000003, z: 10.3}
+  m_LocalPosition: {x: 0, y: 4.4669085, z: 0}
   m_LocalScale: {x: 80, y: 1, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 435268945}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &634603960
 BoxCollider:
@@ -3089,8 +3088,8 @@ Transform:
   m_GameObject: {fileID: 956602801}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.4564443, y: -5, z: 10.3}
-  m_LocalScale: {x: 80, y: 1, z: 80}
+  m_LocalPosition: {x: -7.4564443, y: -5, z: 8.9}
+  m_LocalScale: {x: 80, y: 1, z: 78}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 435268945}
@@ -7986,6 +7985,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4095415306391522415, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
+      propertyPath: maxEnemies
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095415306391522415, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 557575583}
@@ -7997,6 +8000,10 @@ PrefabInstance:
       propertyPath: spawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 509155054}
+    - target: {fileID: 4095415306391522415, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
+      propertyPath: enemyPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8118343293144196920, guid: 8c9075af014d7124bb971fae7cd54bb4, type: 3}
     - target: {fileID: 4523011896832099243, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
       propertyPath: m_Name
       value: GameController
@@ -8253,6 +8260,7 @@ SceneRoots:
   - {fileID: 157865734}
   - {fileID: 6416902202088453315}
   - {fileID: 435268945}
+  - {fileID: 634603959}
   - {fileID: 1219992266}
   - {fileID: 1318200992584581396}
   - {fileID: 5188107127213256213}

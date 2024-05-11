@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -52,10 +53,39 @@ public class EnemyController : MonoBehaviour
         int enemyIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject enemyPrefab = enemyPrefabs[enemyIndex];
 
-        Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
+        float radius = 5f; 
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        randomDirection.y = 0; 
 
-        currentEnemies++;
+        Vector3 spawnLocation = spawnPoint.transform.position + randomDirection;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(spawnLocation, out hit, radius, NavMesh.AllAreas))
+        {
+            Vector3 finalPosition = hit.position; 
+            GameObject newEnemy = Instantiate(enemyPrefab, finalPosition, Quaternion.identity);
+            currentEnemies++;
+
+            NavMeshAgent agent = newEnemy.GetComponent<NavMeshAgent>();
+            if (agent != null && !agent.isOnNavMesh)
+            {
+
+                if (!agent.Warp(finalPosition))
+                {
+                    //Debug.LogError("Failed to place agent on NavMesh. Destroying agent.");
+                    //Destroy(newEnemy);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No valid NavMesh point found near spawn point!");
+        }
     }
+
+
+
+
     public void RemoveSpawnPoint(GameObject spawnPointToRemove)
     {
         spawnPoints.Remove(spawnPointToRemove);

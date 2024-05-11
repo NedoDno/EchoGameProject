@@ -49,8 +49,9 @@ namespace MimicSpace
         bool canCreateLeg = true;
 
         List<GameObject> availableLegPool = new List<GameObject>();
+        //public LegPoolManager legPoolManager;
 
-        [Tooltip("This must be updates as the Mimic moves to assure great leg placement")]
+        [Tooltip("This must be updates as the Mimin moves to assure great leg placement")]
         public Vector3 velocity;
 
         void Start()
@@ -58,19 +59,12 @@ namespace MimicSpace
             ResetMimic();
         }
 
-        private void OnValidate()
-        {
-            ResetMimic();
-        }
 
         private void ResetMimic()
         {
             foreach (Leg g in GameObject.FindObjectsOfType<Leg>())
             {
-                if (g.transform.parent == transform) // Ensure only legs belonging to this mimic are affected
-                {
-                    Destroy(g.gameObject);
-                }
+                Destroy(g.gameObject);
             }
             legCount = 0;
             deployedLegs = 0;
@@ -81,6 +75,7 @@ namespace MimicSpace
             velocity = new Vector3(randV.x, 0, randV.y);
             minimumAnchoredParts = minimumAnchoredLegs * partsPerLeg;
             maxLegDistance = newLegRadius * 2.1f;
+
         }
 
         IEnumerator NewLegCooldown()
@@ -90,6 +85,7 @@ namespace MimicSpace
             canCreateLeg = true;
         }
 
+        // Update is called once per frame
         void Update()
         {
             if (!canCreateLeg)
@@ -100,30 +96,48 @@ namespace MimicSpace
 
             if (legCount <= maxLegs - partsPerLeg)
             {
+                // Offset The leg origin by a random vector
                 Vector2 offset = Random.insideUnitCircle * newLegRadius;
                 Vector3 newLegPosition = legPlacerOrigin + new Vector3(offset.x, 0, offset.y);
-                // Further adjustments...
+
+                // If the mimic is moving and the new leg position is behind it, mirror it to make
+                // it reach in front of the mimic.
+                if (velocity.magnitude > 1f)
+                {
+                    float newLegAngle = Vector3.Angle(velocity, newLegPosition - transform.position);
+
+                    if (Mathf.Abs(newLegAngle) > 90)
+                    {
+                        newLegPosition = transform.position - (newLegPosition - transform.position);
+                    }
+                }
+
+                if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(legPlacerOrigin.x, 0, legPlacerOrigin.z)) < minLegDistance)
+                    newLegPosition = ((newLegPosition - transform.position).normalized * minLegDistance) + transform.position;
+
+                // if the angle is too big, adjust the new leg position towards the velocity vector
+                if (Vector3.Angle(velocity, newLegPosition - transform.position) > 45)
+                    newLegPosition = transform.position + ((newLegPosition - transform.position) + velocity.normalized * (newLegPosition - transform.position).magnitude) / 2f;
 
                 RaycastHit hit;
-                if (Physics.Raycast(newLegPosition + Vector3.up * 10f, -Vector3.up, out hit))
+                Physics.Raycast(newLegPosition + Vector3.up * 10f, -Vector3.up, out hit);
+                Vector3 myHit = hit.point;
+                if (Physics.Linecast(transform.position, hit.point, out hit))
+                    myHit = hit.point;
+
+                float lifeTime = Random.Range(minLegLifetime, maxLegLifetime);
+
+                StartCoroutine("NewLegCooldown");
+                for (int i = 0; i < partsPerLeg; i++)
                 {
-                    Vector3 myHit = hit.point;
-                    if (Physics.Linecast(transform.position, hit.point, out hit))
-                        myHit = hit.point;
-
-                    float lifeTime = Random.Range(minLegLifetime, maxLegLifetime);
-
-                    StartCoroutine("NewLegCooldown");
-                    for (int i = 0; i < partsPerLeg; i++)
-                    {
-                        RequestLeg(myHit, legResolution, maxLegDistance, Random.Range(minGrowCoef, maxGrowCoef), this, lifeTime);
-                        if (legCount >= maxLegs)
-                            return;
-                    }
+                    RequestLeg(myHit, legResolution, maxLegDistance, Random.Range(minGrowCoef, maxGrowCoef), this, lifeTime);
+                    if (legCount >= maxLegs)
+                        return;
                 }
             }
         }
 
+        // object pooling to limit leg instantiation
         void RequestLeg(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime)
         {
             GameObject newLeg;
@@ -139,17 +153,13 @@ namespace MimicSpace
             newLeg.SetActive(true);
             newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime);
             newLeg.transform.SetParent(myMimic.transform);
-            legCount++;
         }
 
         public void RecycleLeg(GameObject leg)
         {
-            if (leg.transform.parent == transform) // Ensure only legs belonging to this mimic are recycled
-            {
-                availableLegPool.Add(leg);
-                leg.SetActive(false);
-                legCount--;
-            }
+            availableLegPool.Add(leg);
+            leg.SetActive(false);
         }
     }
+
 }
