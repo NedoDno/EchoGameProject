@@ -18,6 +18,7 @@ public class SlidingPuzzle : MonoBehaviour
     public bool PuzzleCompleted = false;
     public TextMeshProUGUI completionText;
     private PickUpItemManager itemManager;
+    public GameObject playereyes; 
 
 
     void Start()
@@ -25,8 +26,10 @@ public class SlidingPuzzle : MonoBehaviour
         //CreatePuzzleGrid();
         //ShuffleTiles();
         //PositionPanel();
+        playereyes = GameObject.Find("Player");
         completionText.enabled = false;
         itemManager = GameObject.Find("GameController").GetComponent<PickUpItemManager>();
+        
     }
 
     void Update()
@@ -191,6 +194,8 @@ public class SlidingPuzzle : MonoBehaviour
     {
         Time.timeScale = 1;
         this.gameObject.SetActive(false);
+        playereyes.GetComponent<MouseLookX>().enabled = true;
+        playereyes. GetComponentInChildren<MouseLookY>().enabled = true;
 
     }
     public void UseShadow()

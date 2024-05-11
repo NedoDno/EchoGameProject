@@ -7,7 +7,7 @@ public class PuzzleTrigger : MonoBehaviour
 {
     public GameObject player;
     public float activationDistance = 2.0f;
-    public GameObject puzzle;  
+    public GameObject puzzle;
     public Texture2D[] puzzleImages;
     public GameObject canvas;
     private GameObject minigameInstance;
@@ -19,11 +19,12 @@ public class PuzzleTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (minigameInstance == null) 
+                if (minigameInstance == null)
                 {
                     minigameInstance = Instantiate(puzzle, Vector3.zero, Quaternion.identity);
                     minigameInstance.transform.SetParent(canvas.transform, false);
-                    minigameInstance.SetActive(false); 
+                    minigameInstance.SetActive(false);
+
 
                     int imageIndex = Random.Range(0, puzzleImages.Length);
                     SlidingPuzzle slidingPuzzle = minigameInstance.GetComponent<SlidingPuzzle>();
@@ -33,8 +34,10 @@ public class PuzzleTrigger : MonoBehaviour
                     }
                 }
 
+                player.GetComponent<MouseLookX>().enabled = false;
+                player. GetComponentInChildren<MouseLookY>().enabled = false;
                 minigameInstance.SetActive(true);
-                Time.timeScale = 0;  
+                Time.timeScale = 0;
             }
         }
         if (minigameInstance != null)
@@ -49,7 +52,7 @@ public class PuzzleTrigger : MonoBehaviour
                 Door doorScript = door.GetComponent<Door>();
                 if (doorScript != null)
                 {
-                    doorScript.OpenDoor();  
+                    doorScript.OpenDoor();
                 }
             }
         }

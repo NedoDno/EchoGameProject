@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-
+    public GameObject playereyes; 
     [SerializeField] private SettingsPopup settingsPopup;
     public bool isPaused = false;
     void Start()
@@ -18,6 +18,8 @@ public class UIController : MonoBehaviour
         if (Input.GetKey("escape"))
         {
             OnOpenSettings();
+            playereyes.GetComponent<MouseLookX>().enabled = false;
+            playereyes. GetComponentInChildren<MouseLookY>().enabled = false;
         }
     }
     public void OnOpenSettings()
@@ -31,6 +33,8 @@ public class UIController : MonoBehaviour
         settingsPopup.Close();
         Time.timeScale = 1;
         isPaused = false;
+        playereyes.GetComponent<MouseLookX>().enabled = true;
+        playereyes. GetComponentInChildren<MouseLookY>().enabled = true;
     }
     public void ExitToMenu()
     {

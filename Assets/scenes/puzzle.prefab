@@ -992,3 +992,4 @@ MonoBehaviour:
   tileSize: 100
   PuzzleCompleted: 0
   completionText: {fileID: 2730530368566255218}
+  playereyes: {fileID: 0}
