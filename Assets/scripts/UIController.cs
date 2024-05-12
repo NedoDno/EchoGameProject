@@ -6,13 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject playereyes;
+    private GameObject playereyes;
 
-    public GameObject GameOverPanel;
-    public GameObject settingsPopup;
+    private GameObject GameOverPanel;
+    private GameObject settingsPopup;
     
-    public GameObject startGameButton;
-    public bool isPaused = false;
+    private bool isPaused = false;
     void Start()
     {
         InitiateUIVisibility();
@@ -48,14 +47,6 @@ public class UIController : MonoBehaviour
         OnContinue();
     }
 
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Game");
-        Time.timeScale = 1;
-        isPaused = false;
-        InitiateUIVisibility();
-    }
-
     public void ExitGame()
     {
         Application.Quit();
@@ -83,34 +74,18 @@ public class UIController : MonoBehaviour
         }
         if (settingsPopup != null)
         {
-
-        Debug.Log(settingsPopup.transform.Find("continue").GetComponent<Button>().onClick);
-            settingsPopup.transform.Find("continue").GetComponent<Button>().onClick.AddListener(OnContinue);
+  settingsPopup.transform.Find("continue").GetComponent<Button>().onClick.AddListener(OnContinue);
             settingsPopup.transform.Find("exittomenu").GetComponent<Button>().onClick.AddListener(ExitToMenu);
             settingsPopup.GetComponent<SettingsPopup>().Close();
         }
         if (GameOverPanel != null)
         {
             
-        Debug.Log("Redo5");
             GameOverPanel.transform.Find("tomenu").GetComponent<Button>().onClick.AddListener(ExitToMenu);
             GameOverPanel.transform.Find("exitgame").GetComponent<Button>().onClick.AddListener(ExitGame);
             GameOverPanel.SetActive(false);
         }
         
-        if (startGameButton == null)
-        {
-            
-        Debug.Log("Redo6");
-            startGameButton = GameObject.Find("startgame");
-        }
-        if (startGameButton != null)
-        {
-            
-        Debug.Log("Redo7");
-            GameObject.Find("startgame").GetComponent<Button>().onClick.RemoveAllListeners();
-            GameObject.Find("startgame").GetComponent<Button>().onClick.AddListener(StartGame);
-        }
 
     }
 

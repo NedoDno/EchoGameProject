@@ -31,6 +31,9 @@ public class PickUpItemManager : MonoBehaviour
 
     public void ItemPickedUp(PickupItem.ItemType itemType)
     {
+        shards = GameObject.Find("shards").GetComponentInChildren<TextMeshProUGUI>();
+        shadows = GameObject.Find("shadows").GetComponentInChildren<TextMeshProUGUI>();
+        essence = GameObject.Find("essence").GetComponentInChildren<TextMeshProUGUI>();
         switch (itemType)
         {
             case PickupItem.ItemType.Shard:
@@ -48,7 +51,9 @@ public class PickUpItemManager : MonoBehaviour
         }
         if (shardsCount >= 3)
         {
+            door = GameObject.Find("EXIT_DOOR").GetComponent<BoxCollider>();
             door.isTrigger = true;
+            shardsCount = 0;
         }
     }
     public bool ConsumeShadow()
