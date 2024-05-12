@@ -332,7 +332,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73302850266142221, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
       propertyPath: m_Name
-      value: exit game
+      value: exitgame
       objectReference: {fileID: 0}
     - target: {fileID: 919666302636565401, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
       propertyPath: m_TagString
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2280928734707098642, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
       propertyPath: m_Name
-      value: ti menu
+      value: tomenu
       objectReference: {fileID: 0}
     - target: {fileID: 2321761155695818383, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
       propertyPath: m_TagString
@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7030757482280580947, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7093059974625152301, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2366,15 +2366,15 @@ PrefabInstance:
     - target: {fileID: 3986326862376482762, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
       propertyPath: playereyes
       value: 
-      objectReference: {fileID: 1287592016}
+      objectReference: {fileID: 0}
     - target: {fileID: 3986326862376482762, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
       propertyPath: GameOverPanel
       value: 
-      objectReference: {fileID: 29638151}
+      objectReference: {fileID: 0}
     - target: {fileID: 3986326862376482762, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
       propertyPath: settingsPopup
       value: 
-      objectReference: {fileID: 1806436759}
+      objectReference: {fileID: 0}
     - target: {fileID: 3990274836901565383, guid: 5933d80e7cf5210459159f0ba8697872, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.534061
@@ -7171,17 +7171,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2460156708185359517, guid: 132c1ebaeeee9404590703ed153f3f2e, type: 3}
   m_PrefabInstance: {fileID: 1756059285}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1806436759 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6603971636480842408, guid: 56045cb3b37ba3e4e8d1970a7edd7048, type: 3}
-  m_PrefabInstance: {fileID: 29638149}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e9860873337c244a4a54d309f0be62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1826501995
 GameObject:
   m_ObjectHideFlags: 0
