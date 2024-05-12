@@ -14,6 +14,7 @@ public class PickUpItemManager : MonoBehaviour
     public TextMeshProUGUI shards;
     public TextMeshProUGUI shadows;
     public TextMeshProUGUI essence;
+    public BoxCollider door;
 
     void Awake()
     {
@@ -44,6 +45,10 @@ public class PickUpItemManager : MonoBehaviour
                 essenceCount++;
                 essence.text = "x " + essenceCount;
                 break;
+        }
+        if (shardsCount >= 3)
+        {
+            door.isTrigger = true;
         }
     }
     public bool ConsumeShadow()

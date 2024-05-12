@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
         {
             OnOpenSettings();
             playereyes.GetComponent<MouseLookX>().enabled = false;
-            playereyes. GetComponentInChildren<MouseLookY>().enabled = false;
+            playereyes.GetComponentInChildren<MouseLookY>().enabled = false;
         }
     }
     public void OnOpenSettings()

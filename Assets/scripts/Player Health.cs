@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int hp = 100;
     public Slider hpSlider;
     public GameObject GameOverPanel;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     {
         hp -= damage;
         hpSlider.value = hp;
+        audioSource.Play();
         if (hp <= 0)
         {
             Time.timeScale = 0;
