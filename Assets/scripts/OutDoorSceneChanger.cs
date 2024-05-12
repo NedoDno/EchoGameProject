@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class OutDoorSceneChanger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int nextSceneNumber;
+    public GameObject gameCompleted;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
-         {
-            SceneTransition.SwitchToScene("level2");
-         }
+        {
+            if (nextSceneNumber == 4)
+            {
+                gameCompleted.SetActive(true);
+                foreach (GameObject ui_el in GameObject.FindGameObjectsWithTag("UI"))
+                {
+                    ui_el.SetActive(false);
+                }
+            }
+            else
+            {
+                SceneTransition.SwitchToScene("level" + nextSceneNumber.ToString());
+            }
+        }
     }
 
 }

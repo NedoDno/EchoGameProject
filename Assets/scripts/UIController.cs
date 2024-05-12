@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject playereyes; 
-    
+    public GameObject playereyes;
+
     public GameObject GameOverPanel;
-    [SerializeField] private SettingsPopup settingsPopup;
+    public GameObject settingsPopup;
+    
+    public GameObject startGameButton;
     public bool isPaused = false;
     void Start()
     {
-        GameOverPanel.SetActive(false);
-        settingsPopup.Close();
+        InitiateUIVisibility();
     }
     void Update()
     {
@@ -27,27 +28,90 @@ public class UIController : MonoBehaviour
     }
     public void OnOpenSettings()
     {
-        settingsPopup.Open();
+        settingsPopup.GetComponent<SettingsPopup>().Open();
         Time.timeScale = 0;
         isPaused = true;
     }
     public void OnContinue()
     {
-        settingsPopup.Close();
         Time.timeScale = 1;
         isPaused = false;
+        InitiateUIVisibility();
+        settingsPopup.GetComponent<SettingsPopup>().Close();
         playereyes.GetComponent<MouseLookX>().enabled = true;
-        playereyes. GetComponentInChildren<MouseLookY>().enabled = true;
+        playereyes.GetComponentInChildren<MouseLookY>().enabled = true;
+
     }
     public void ExitToMenu()
     {
         SceneManager.LoadScene("MainMenu");
         OnContinue();
     }
-    
-    void ExitGame()
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Game");
+        Time.timeScale = 1;
+        isPaused = false;
+        InitiateUIVisibility();
+    }
+
+    public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void InitiateUIVisibility()
+    {
+        if (GameOverPanel == null)
+        {
+            
+        Debug.Log("Redo1");
+            GameOverPanel = GameObject.Find("GameOver");
+        }
+        if (settingsPopup == null)
+        {
+            
+        Debug.Log("Redo2");
+            settingsPopup = GameObject.Find("Menu");
+        }
+        if (playereyes == null)
+        {
+            
+        Debug.Log("Redo3");
+            playereyes = GameObject.Find("Player");
+        }
+        if (settingsPopup != null)
+        {
+
+        Debug.Log(settingsPopup.transform.Find("continue").GetComponent<Button>().onClick);
+            settingsPopup.transform.Find("continue").GetComponent<Button>().onClick.AddListener(OnContinue);
+            settingsPopup.transform.Find("exittomenu").GetComponent<Button>().onClick.AddListener(ExitToMenu);
+            settingsPopup.GetComponent<SettingsPopup>().Close();
+        }
+        if (GameOverPanel != null)
+        {
+            
+        Debug.Log("Redo5");
+            GameOverPanel.transform.Find("tomenu").GetComponent<Button>().onClick.AddListener(ExitToMenu);
+            GameOverPanel.transform.Find("exitgame").GetComponent<Button>().onClick.AddListener(ExitGame);
+            GameOverPanel.SetActive(false);
+        }
+        
+        if (startGameButton == null)
+        {
+            
+        Debug.Log("Redo6");
+            startGameButton = GameObject.Find("startgame");
+        }
+        if (startGameButton != null)
+        {
+            
+        Debug.Log("Redo7");
+            GameObject.Find("startgame").GetComponent<Button>().onClick.RemoveAllListeners();
+            GameObject.Find("startgame").GetComponent<Button>().onClick.AddListener(StartGame);
+        }
+
     }
 
 }

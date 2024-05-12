@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 832399957896606527}
   - component: {fileID: 4231747464923130633}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: exitgame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 3037751116859149144}
   - component: {fileID: 2389016145461868384}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 1628431147036372074}
   - component: {fileID: 2635462047475955435}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: exittomenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 8773947912808124134}
   - component: {fileID: 7093059974625152301}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: tomenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
