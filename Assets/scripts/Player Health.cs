@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public int hp = 100;
     public Slider hpSlider;
+    public GameObject GameOverPanel;
 
     void Start()
     {
@@ -20,7 +21,12 @@ public class PlayerHealth : MonoBehaviour
         hpSlider.value = hp;
         if (hp <= 0)
         {
-            Debug.Log("Player is dead!");
+            Time.timeScale = 0;
+            GameOverPanel.SetActive(true);
+            foreach (GameObject ui_el in GameObject.FindGameObjectsWithTag("UI"))
+            {
+                ui_el.SetActive(false);
+            }
         }
     }
 }

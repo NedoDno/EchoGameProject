@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     public GameObject playereyes; 
+    
+    public GameObject GameOverPanel;
     [SerializeField] private SettingsPopup settingsPopup;
     public bool isPaused = false;
     void Start()
     {
+        GameOverPanel.SetActive(false);
         settingsPopup.Close();
     }
     void Update()
@@ -40,6 +43,11 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         OnContinue();
+    }
+    
+    void ExitGame()
+    {
+        Application.Quit();
     }
 
 }
