@@ -7,6 +7,18 @@ public class Damageable : MonoBehaviour
     public int durability = 40;  
     public GameObject dropPrefab;
     public float dropChance = 0.25f;
+    public float delayOfDeath = 0f;
+    public bool hasAnimator = false;
+    public Animator animator;
+    
+    void Start()
+    {
+        if (hasAnimator)
+        {
+            animator = GetComponent<Animator>();
+        }
+    }
+
 
     public void TakeDamage(int damage)
     {
@@ -20,7 +32,11 @@ public class Damageable : MonoBehaviour
                     Instantiate(dropPrefab, transform.position, Quaternion.identity);
                 }
             }
-            Destroy(gameObject);
+            if (hasAnimator)
+            {
+                animator.SetTrigger("death");
+            }
+            Destroy(gameObject, delayOfDeath);
         }
     }
 }

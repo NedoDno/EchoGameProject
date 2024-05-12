@@ -7,13 +7,14 @@ public class PickUpItemManager : MonoBehaviour
 {
     public static PickUpItemManager Instance { get; private set; }
 
-    public int type1Count = 0;
-    public int type2Count = 0;
-    public int type3Count = 0;
+    public int shardsCount = 0;
+    public int shadowsCount = 0;
+    public int essenceCount = 0;
 
-    public TextMeshProUGUI type1Text;
-    public TextMeshProUGUI type2Text;
-    public TextMeshProUGUI type3Text;
+    public TextMeshProUGUI shards;
+    public TextMeshProUGUI shadows;
+    public TextMeshProUGUI essence;
+    public BoxCollider door;
 
     void Awake()
     {
@@ -30,20 +31,50 @@ public class PickUpItemManager : MonoBehaviour
 
     public void ItemPickedUp(PickupItem.ItemType itemType)
     {
+        shards = GameObject.Find("shards").GetComponentInChildren<TextMeshProUGUI>();
+        shadows = GameObject.Find("shadows").GetComponentInChildren<TextMeshProUGUI>();
+        essence = GameObject.Find("essence").GetComponentInChildren<TextMeshProUGUI>();
         switch (itemType)
         {
-            case PickupItem.ItemType.Type1:
-                type1Count++;
-                type1Text.text = "Type 1: " + type1Count;
+            case PickupItem.ItemType.Shard:
+                shardsCount++;
+                shards.text = "x " + shardsCount;
                 break;
-            case PickupItem.ItemType.Type2:
-                type2Count++;
-                type2Text.text = "Type 2: " + type2Count;
+            case PickupItem.ItemType.Shadow:
+                shadowsCount++;
+                shadows.text = "x " + shadowsCount;
                 break;
-            case PickupItem.ItemType.Type3:
-                type3Count++;
-                type3Text.text = "Type 3: " + type3Count;
+            case PickupItem.ItemType.Essence:
+                essenceCount++;
+                essence.text = "x " + essenceCount;
                 break;
         }
+        if (shardsCount >= 3)
+        {
+            door = GameObject.Find("EXIT_DOOR").GetComponent<BoxCollider>();
+            door.isTrigger = true;
+            shardsCount = 0;
+        }
+    }
+    public bool ConsumeShadow()
+    {
+        if (shadowsCount > 0)
+        {
+            shadowsCount--;
+            shadows.text = "x " + shadowsCount;
+            return true;
+        }
+        return false;
+    }
+
+    public bool ConsumeEssence()
+    {
+        if (essenceCount > 0)
+        {
+            essenceCount--;
+            essence.text = "x " + essenceCount;
+            return true;
+        }
+        return false;
     }
 }

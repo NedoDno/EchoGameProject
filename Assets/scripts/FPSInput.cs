@@ -10,18 +10,27 @@ public class FPSInput : MonoBehaviour
     private float deltaY = 0f;
 
     private bool isCrouching;
+    
+    private bool isWalkSoundJustPlayed;
     private Vector3 originalCenter;
     private float originalHeight;
 
     private Vector3 originalTransform;
     private float originalMoveSpeed;
+    private float originalVolume;
+    private float coefTimerWalkSoung=12;
 
     private CharacterController charController;
+    
+    public AudioSource audioSource;
+    [SerializeField] AudioClip walkSound;
+
     void Start()
     {
         charController = GetComponent<CharacterController>();
         originalTransform = transform.localScale;
         originalMoveSpeed = speed;
+        originalVolume =  audioSource.volume;
     }
     void Update()
     {
@@ -32,7 +41,13 @@ public class FPSInput : MonoBehaviour
         movement = Vector3.ClampMagnitude(movement, speed);
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            audioSource.volume = audioSource.volume*2;
             movement = movement * 2;
+            coefTimerWalkSoung = 16;
+        }
+        else{
+            coefTimerWalkSoung = 12;
+            audioSource.volume = originalVolume;
         }
         movement.y = gravity;
         movement *= dt;
@@ -42,21 +57,33 @@ public class FPSInput : MonoBehaviour
         {
             deltaY = 0f;
         }
-        if (Input.GetButton("Jump") && charController.isGrounded)
-        {
-            Jump(speed);
-        }
+        //if (Input.GetButton("Jump") && charController.isGrounded)
+        //{
+        //    Jump(speed);
+        //}
         deltaY += gravity * Time.deltaTime;
         movement = new Vector3(0, deltaY, 0);
         movement *= dt;
+        
         charController.Move(movement);
-
         Crouch();
+ 
+        if((deltaX != 0 || deltaZ != 0) && !isCrouching && !isWalkSoundJustPlayed &&  charController.isGrounded)
+            StartCoroutine(WalkSoundPlay());
+ 
     }
-    public void Jump(float jumpHeight)
+    private IEnumerator WalkSoundPlay()
     {
-        deltaY = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+        audioSource.PlayOneShot(walkSound);
+        isWalkSoundJustPlayed = true;
+        yield return new WaitForSeconds(speed/coefTimerWalkSoung);
+        isWalkSoundJustPlayed = false;
     }
+    //public void Jump(float jumpHeight)
+    //{
+    //    audioSource.PlayOneShot(jumpSound);
+    //    deltaY = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+    //}
     public void Crouch()
     {
         if (Input.GetButtonDown("Crouch") && charController.isGrounded)
@@ -72,5 +99,12 @@ public class FPSInput : MonoBehaviour
             speed = originalMoveSpeed;
             isCrouching = false;
         }
+    }
+
+    public void OnSpeedChange<T>(float _speed)
+    {
+        Debug.Log("New speed " + _speed.ToString());
+        speed = _speed;
+        originalMoveSpeed = speed;
     }
 }

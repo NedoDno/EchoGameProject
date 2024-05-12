@@ -5,24 +5,54 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleTrigger : MonoBehaviour
 {
-    public float radius = 2f;
-    //public Transform playerCamera;
-    //[SerializeField] private SettingsPopup popup;
-    public bool isActivated = false;
-    
+    public GameObject player;
+    public float activationDistance = 2.0f;
+    public GameObject puzzle;
+    public Texture2D[] puzzleImages;
+    public GameObject canvas;
+    private GameObject minigameInstance;
+    public GameObject door;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Vector3.Distance(transform.position, player.transform.position) <= activationDistance)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
-            foreach (Collider hitCollider in hitColliders)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                Vector3 direction = hitCollider.transform.position - transform.position;
-                if (Vector3.Dot(transform.forward, direction) > .5f & !isActivated)
+                if (minigameInstance == null)
                 {
-                    isActivated = true;
-                    //SceneManager.LoadScene("test", LoadSceneMode.Additive);
+                    minigameInstance = Instantiate(puzzle, Vector3.zero, Quaternion.identity);
+                    minigameInstance.transform.SetParent(canvas.transform, false);
+                    minigameInstance.SetActive(false);
+
+
+                    int imageIndex = Random.Range(0, puzzleImages.Length);
+                    SlidingPuzzle slidingPuzzle = minigameInstance.GetComponent<SlidingPuzzle>();
+                    if (slidingPuzzle != null)
+                    {
+                        slidingPuzzle.SetPuzzleImage(puzzleImages[imageIndex]);
+                    }
+                }
+
+                player.GetComponent<MouseLookX>().enabled = false;
+                player. GetComponentInChildren<MouseLookY>().enabled = false;
+                minigameInstance.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
+        if (minigameInstance != null)
+        {
+            SlidingPuzzle slidingPuzzle = minigameInstance.GetComponent<SlidingPuzzle>();
+            if (slidingPuzzle == null)
+            {
+                //Debug.LogError("SlidingPuzzle component is missing on the minigame instance!");
+            }
+            if (slidingPuzzle != null && slidingPuzzle.PuzzleCompleted)
+            {
+                Door doorScript = door.GetComponent<Door>();
+                if (doorScript != null)
+                {
+                    doorScript.OpenDoor();
                 }
             }
         }

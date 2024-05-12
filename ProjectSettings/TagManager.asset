@@ -10,6 +10,7 @@ TagManager:
   - SpawnPoint
   - Enemy
   - PickUpItem
+  - UI
   layers:
   - Default
   - TransparentFX
