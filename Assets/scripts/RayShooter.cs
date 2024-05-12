@@ -29,11 +29,11 @@ public class RayShooter : MonoBehaviour
                 aimScope.SetActive(hasWeapon);
                 if (hasWeapon)
                 {
-                    // Optional: Add sound of picking up a weapon
+                    // Add sound of picking up a weapon
                 }
                 else
                 {
-                    // Optional: Add sound of putting away a weapon
+                    // Add sound of putting away a weapon
                 }
             }
         }

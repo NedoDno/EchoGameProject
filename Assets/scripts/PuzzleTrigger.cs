@@ -45,7 +45,7 @@ public class PuzzleTrigger : MonoBehaviour
             SlidingPuzzle slidingPuzzle = minigameInstance.GetComponent<SlidingPuzzle>();
             if (slidingPuzzle == null)
             {
-                Debug.LogError("SlidingPuzzle component is missing on the minigame instance!");
+                //Debug.LogError("SlidingPuzzle component is missing on the minigame instance!");
             }
             if (slidingPuzzle != null && slidingPuzzle.PuzzleCompleted)
             {

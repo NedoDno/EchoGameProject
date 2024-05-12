@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public float openingHeight = 3f;  // How high the door should open
-    public float openingSpeed = 1f;   // Speed of the door opening
+    public float openingHeight = 3f;
+    public float openingSpeed = 1f;   
 
     private bool isOpening = false;
     private Vector3 closedPosition;
@@ -21,7 +21,6 @@ public class Door : MonoBehaviour
     {
         if (isOpening)
         {
-            // Move the door upwards until it reaches the open position
             transform.position = Vector3.MoveTowards(transform.position, openPosition, openingSpeed * Time.deltaTime);
         }
     }

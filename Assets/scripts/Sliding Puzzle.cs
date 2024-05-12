@@ -95,7 +95,7 @@ public class SlidingPuzzle : MonoBehaviour
     void CreatePuzzleGrid()
     {
         tiles = new GameObject[gridSize, gridSize];
-        tilePositions = new int[gridSize, gridSize]; // Initialize the positions array
+        tilePositions = new int[gridSize, gridSize]; 
         int tileWidth = puzzleImage.width / gridSize;
         int tileHeight = puzzleImage.height / gridSize;
 
@@ -109,13 +109,13 @@ public class SlidingPuzzle : MonoBehaviour
         {
             for (int x = 0; x < gridSize; x++)
             {
-                tilePositions[x, y] = y * gridSize + x; // Assign each tile a unique position ID based on its starting position
+                tilePositions[x, y] = y * gridSize + x; 
 
                 if (x == gridSize - 1 && y == gridSize - 1)
                 {
                     emptyTileX = x;
                     emptyTileY = y;
-                    continue; // Skip creating the last tile to make an empty space
+                    continue; 
                 }
 
                 GameObject tile = new GameObject($"Tile_{x}_{y}", typeof(Image));
@@ -145,9 +145,8 @@ public class SlidingPuzzle : MonoBehaviour
         tiles[emptyTileX, emptyTileY] = tileToMove;
         tiles[x, y] = null;
 
-        // Update the tile positions array to reflect the new positions
         tilePositions[emptyTileX, emptyTileY] = tilePositions[x, y];
-        tilePositions[x, y] = gridSize * gridSize - 1; // Set the new empty position
+        tilePositions[x, y] = gridSize * gridSize - 1; 
 
         tileToMove.GetComponent<RectTransform>().anchoredPosition = new Vector2(emptyTileX * tileSize - gridSize * tileSize / 2 + tileSize / 2, -emptyTileY * tileSize + gridSize * tileSize / 2 - tileSize / 2);
         emptyTileX = x;
@@ -202,12 +201,12 @@ public class SlidingPuzzle : MonoBehaviour
     {
         if (itemManager.ConsumeShadow())
         {
-            Debug.Log("Refreshed puzzle using 1 Shadow item.");
+            Debug.Log("Refreshed puzzle using 1 Shadow.");
             ShuffleTiles();
         }
         else
         {
-            Debug.Log("Not enough Shadow items to refresh the puzzle.");
+            Debug.Log("Not enough Shadow to refresh the puzzle.");
         }
     }
 
@@ -215,12 +214,12 @@ public class SlidingPuzzle : MonoBehaviour
     {
         if (itemManager.ConsumeEssence())
         {
-            Debug.Log("Skipped puzzle using 1 Essence item.");
+            Debug.Log("Skipped puzzle using 1 Essence.");
             SkipPuzzle();
         }
         else
         {
-            Debug.Log("Not enough Essence items to skip the puzzle.");
+            Debug.Log("Not enough Essence to skip the puzzle.");
         }
     }
 
