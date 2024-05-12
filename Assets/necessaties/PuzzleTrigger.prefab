@@ -128,5 +128,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: f948cd336b21dbf43b5ae3c849d6ff57, type: 3}
   - {fileID: 2800000, guid: 74206e9e3ae309f4e85477fb51460ee9, type: 3}
   - {fileID: 2800000, guid: 457b43688f8656046876974b1bdf1356, type: 3}
+  - {fileID: 2800000, guid: 9c2281c8db969a9438e0039b7df53187, type: 3}
+  - {fileID: 2800000, guid: 3bd55fa8e3c649649a6aed478d1d0fda, type: 3}
+  - {fileID: 2800000, guid: 4d8cde0feef00504db4d73146826cb64, type: 3}
   canvas: {fileID: 0}
   door: {fileID: 0}
